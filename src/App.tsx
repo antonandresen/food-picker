@@ -12,6 +12,7 @@ const List = styled.ul`
 const Button = styled.button`
   padding: 1rem;
   font-size: 2rem;
+  margin: 0.5rem;
 `;
 
 const App = () => {
@@ -36,7 +37,7 @@ const App = () => {
 
   const randomizeFood = () => {
     const checkedOptions = foodOptions.filter(food => food.checked);
-    if (checkedOptions.length === 0) return;
+    if (checkedOptions.length === 0) return setRandomFood("noob bruh");
     const randomFood =
       checkedOptions[Math.floor(Math.random() * checkedOptions.length)];
     setRandomFood(randomFood.name);
