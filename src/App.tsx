@@ -1,7 +1,18 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
 import "./App.css";
 import foods from "./data/food";
 import { Food } from "./data/types";
+
+const List = styled.ul`
+  list-style: none;
+`;
+
+const Button = styled.button`
+  padding: 1rem;
+  font-size: 2rem;
+`;
 
 const App = () => {
   const [foodOptions, setFoodOptions] = useState(foods);
@@ -25,15 +36,25 @@ const App = () => {
 
   const randomizeFood = () => {
     const checkedOptions = foodOptions.filter(food => food.checked);
+    if (checkedOptions.length === 0) return;
     const randomFood =
       checkedOptions[Math.floor(Math.random() * checkedOptions.length)];
     setRandomFood(randomFood.name);
+  };
+
+  const selectAll = () => {
+    const optionsCopy = JSON.parse(JSON.stringify(foodOptions)) as Food[];
+    const isAllChecked = optionsCopy.filter(opt => !opt.checked).length === 0;
+    optionsCopy.forEach(opt => {
+      opt.checked = !isAllChecked;
+    });
+    setFoodOptions(optionsCopy);
   };
   return (
     <div className="App">
       <header className="App-header">
         <form action="">
-          <ul>
+          <List>
             {foodOptions.map(food => {
               return (
                 <li>
@@ -48,9 +69,10 @@ const App = () => {
                 </li>
               );
             })}
-          </ul>
+          </List>
         </form>
-        <button onClick={() => randomizeFood()}>Randomize</button>
+        <Button onClick={() => selectAll()}>Select All</Button>
+        <Button onClick={() => randomizeFood()}>Randomize</Button>
         <h2>{randomFood}</h2>
       </header>
     </div>
