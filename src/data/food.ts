@@ -7,7 +7,8 @@ const foodPlaces = [
   "Burgerking",
   "Max",
   "Shanghai",
-  "Soya"
+  "Soya",
+  "Lyx hamburgare"
 ];
 const foods = foodPlaces.map(place => {
   return {
